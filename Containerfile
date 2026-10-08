@@ -119,6 +119,8 @@ RUN --mount=type=cache,dst=/var/cache \
     sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo && \
     dnf5 -y config-manager setopt "*terra*".priority=1 "*terra*".exclude="nerd-fonts scx-tools scx-scheds python3-protobuf zlib-devel uupd" && \
     dnf5 -y config-manager setopt "terra-mesa".enabled=false && \
+    dnf5 -y config-manager setopt "google-chrome".enabled=true && \
+    dnf5 -y config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo && \
     dnf5 -y config-manager setopt "*bazzite*".priority=2 && \
     eval "$(/ctx/dnf5-setopt setopt '*negativo17*' priority=4 exclude='mesa-* *xone*')" && \
     dnf5 -y config-manager setopt "*fedora*".exclude="mesa-* kernel-core-* kernel-modules-* kernel-uki-virt-* steam noopenh264" && \
@@ -163,7 +165,8 @@ RUN --mount=type=cache,dst=/var/cache \
         NetworkManager-libnm && \
     dnf5 --enable-repo=terra-mesa -y install \
         mesa-libEGL.i686 \
-        intel-opencl \
+        intel-compute-runtime \
+        pocl \
         clinfo && \
     dnf5 -y install \
         libfreeaptx && \
@@ -238,7 +241,7 @@ RUN --mount=type=cache,dst=/var/cache \
         pipewire-module-filter-chain-sofa \
         python3-icoextract \
         tailscale \
-        webapp-manager \
+        brave-origin \
         btop \
         amdsmi \
         duf \
@@ -354,8 +357,7 @@ RUN --mount=type=cache,dst=/var/cache \
         openxr \
         openxr-libs && \
     dnf5 -y --enable-repo=terra-mesa --enable-repo=terra --setopt=install_weak_deps=False install \
-        steam \
-        lutris && \
+        steam && \
     dnf5 -y remove \
         gamemode && \
     /ctx/ghcurl "https://raw.githubusercontent.com/Winetricks/winetricks/5a59ea07513b24093bd90fad943ecf9543cf05bc/src/winetricks" -Lo /usr/bin/winetricks && \
