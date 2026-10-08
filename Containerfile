@@ -119,6 +119,7 @@ RUN --mount=type=cache,dst=/var/cache \
     sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo && \
     dnf5 -y config-manager setopt "*terra*".priority=1 "*terra*".exclude="nerd-fonts scx-tools scx-scheds python3-protobuf zlib-devel uupd" && \
     dnf5 -y config-manager setopt "terra-mesa".enabled=false && \
+    dnf5 -y install fedora-workstation-repositories && \ 
     dnf5 -y config-manager setopt "google-chrome".enabled=true && \
     dnf5 -y config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo && \
     dnf5 -y config-manager setopt "*bazzite*".priority=2 && \
