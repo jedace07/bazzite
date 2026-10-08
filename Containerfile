@@ -121,7 +121,9 @@ RUN --mount=type=cache,dst=/var/cache \
     dnf5 -y config-manager setopt "terra-mesa".enabled=false && \
     dnf5 -y install fedora-workstation-repositories && \ 
     dnf5 -y config-manager setopt "google-chrome".enabled=true && \
-    dnf5 -y config-manager addrepo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo && \
+    curl -fsSL https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo \
+        -o /etc/yum.repos.d/brave-browser.repo && \
+    rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc && \
     dnf5 -y config-manager setopt "*bazzite*".priority=2 && \
     eval "$(/ctx/dnf5-setopt setopt '*negativo17*' priority=4 exclude='mesa-* *xone*')" && \
     dnf5 -y config-manager setopt "*fedora*".exclude="mesa-* kernel-core-* kernel-modules-* kernel-uki-virt-* steam noopenh264" && \
