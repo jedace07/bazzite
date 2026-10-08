@@ -244,7 +244,6 @@ RUN --mount=type=cache,dst=/var/cache \
         pipewire-module-filter-chain-sofa \
         python3-icoextract \
         tailscale \
-        brave-origin \
         btop \
         amdsmi \
         duf \
@@ -305,6 +304,8 @@ RUN --mount=type=cache,dst=/var/cache \
     dnf5 -y swap --allowerasing \
         --repo terra-extras \
             libddcutil terra-libddcutil && \
+    dnf5 -y install --allowerasing \
+        brave-origin && \
     ln -s /dev/null /etc/NetworkManager/dispatcher.d/04-iscsi && \
     systemctl mask iscsi && \
     systemctl mask systemd-remount-fs.service && \
